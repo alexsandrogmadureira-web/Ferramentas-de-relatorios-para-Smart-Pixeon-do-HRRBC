@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Central de Relatórios HTRI — {{ hospital }}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Inter',sans-serif;background:#F0F4F8;min-height:100vh;display:flex}
+
+    /* Sidebar */
+    .sidebar{width:260px;min-height:100vh;background:#1565C0;display:flex;flex-direction:column;padding:28px 20px;flex-shrink:0;position:sticky;top:0;height:100vh}
+    .logo-area{margin-bottom:32px;padding-bottom:24px;border-bottom:1px solid rgba(255,255,255,.15)}
+    .logo-img{max-width:180px;width:100%;height:auto;display:block;margin:0 auto}
+    .logo-box{background:#FFFFFF;border-radius:12px;padding:16px 20px;display:flex;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+    .hospital-nome{font-size:12px;color:#E3F2FD;font-weight:500;line-height:1.4;margin-bottom:4px}
+    .hospital-cidade{font-size:11px;color:#90CAF9}
+    .sidebar-footer{margin-top:auto;padding-top:20px;border-top:1px solid rgba(255,255,255,.15)}
+    .usuario-nome{font-size:12px;color:#BBDEFB;font-weight:500;margin-bottom:4px}
+    .usuario-cargo{font-size:11px;color:#5C8EC5;margin-bottom:12px}
+    .btn-sair{display:block;font-size:12px;color:#BBDEFB;text-decoration:none;padding:8px 12px;border-radius:8px;border:1px solid rgba(255,255,255,.2);text-align:center;transition:background .15s}
+    .btn-sair:hover{background:rgba(255,255,255,.1);color:#FFFFFF}
+    .fonte-dados{font-size:10px;color:#3A6EA5;margin-top:12px;line-height:1.5;text-align:center}
+
+    /* Conteúdo */
+    .conteudo{flex:1;padding:36px 40px;overflow-y:auto}
+    .page-header{margin-bottom:32px}
+    .page-header h1{font-size:26px;font-weight:700;color:#1A237E;margin-bottom:4px}
+    .page-header p{font-size:13px;color:#546E7A}
+
+    /* Seções */
+    .secao{margin-bottom:36px}
+    .secao-titulo{font-size:13px;font-weight:600;color:#546E7A;letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid #E2E8F0}
+
+    /* Grid de módulos */
+    .modulos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+
+    /* Card de módulo */
+    .modulo-card{background:#FFFFFF;border:1px solid #E2E8F0;border-radius:14px;padding:24px 22px;text-decoration:none;display:flex;flex-direction:column;gap:12px;transition:box-shadow .2s,transform .15s,border-color .2s;cursor:pointer;position:relative;overflow:hidden}
+    .modulo-card:hover{box-shadow:0 8px 24px rgba(0,0,0,.1);transform:translateY(-2px);border-color:#1565C0}
+    .modulo-card.inativo{opacity:.6;cursor:not-allowed}
+    .modulo-card.inativo:hover{box-shadow:none;transform:none;border-color:#E2E8F0}
+    .modulo-barra{position:absolute;top:0;left:0;right:0;height:4px;border-radius:14px 14px 0 0}
+    .modulo-icone{font-size:32px;line-height:1}
+    .modulo-nome{font-size:15px;font-weight:600;color:#1A237E}
+    .modulo-desc{font-size:12px;color:#64748B;line-height:1.5}
+    .modulo-badge{display:inline-flex;align-items:center;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:500;margin-top:4px;align-self:flex-start}
+    .badge-ativo{background:#E8F5E9;color:#2E7D32}
+    .badge-dev{background:#FFF8E1;color:#F57F17}
+    .badge-breve{background:#F3E5F5;color:#6A1B9A}
+
+    /* Rodapé */
+    .rodape{margin-top:40px;padding-top:20px;border-top:1px solid #E2E8F0;font-size:11px;color:#94A3B8;display:flex;justify-content:space-between;align-items:center}
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="logo-area">
+      <div class="logo-box">
+        <img src="{{ url_for('static', filename='HRRBC_colorida.png') }}" class="logo-img" alt="HRRBC">
+      </div>
+    </div>  
+    <div class="hospital-nome">{{ hospital }}</div>
+    <div class="hospital-cidade">Arcoverde — PE</div>
+
+    <div class="sidebar-footer">
+      <div class="usuario-nome">{{ nome_usuario }}</div>
+      <div class="usuario-cargo">Usuário do sistema</div>
+      <a href="/logout" class="btn-sair">↩ Sair</a>
+      <div class="fonte-dados">
+        Dados originados do<br>sistema SMART Pixeon.<br>
+        Uso interno — somente leitura.
+      </div>
+    </div>
+  </div>
+
+  <!-- Conteúdo -->
+  <div class="conteudo">
+    <div class="page-header">
+      <h1>Central de Relatórios Hospitalares</h1>
+      <p>Selecione um módulo para acessar os relatórios e indicadores</p>
+    </div>
+
+    <!-- BID -->
+    <div class="secao">
+      <div class="secao-titulo">📋 Central de Relatórios HTRI - HRRBC</div>
+      <div class="modulos-grid">
+
+        <a href="/pacientes/" class="modulo-card">
+          <div class="modulo-barra" style="background:#1565C0"></div>
+          <div class="modulo-icone">🛏</div>
+          <div class="modulo-nome">Ocupação de Leitos</div>
+          <div class="modulo-desc">Taxa de ocupação por clínica, histórico mensal e exportação Excel.</div>
+          <span class="modulo-badge badge-ativo">✓ Disponível</span>
+        </a>
+
+        <a href="/fluxo/" class="modulo-card">
+          <div class="modulo-barra" style="background:#0288D1"></div>
+          <div class="modulo-icone">📋</div>
+          <div class="modulo-nome">Fluxo de Leitos</div>
+          <div class="modulo-desc">Admissões, transferências, altas, evasões e óbitos por setor.</div>
+          <span class="modulo-badge badge-ativo">✓ Disponível</span>
+        </a>
+
+
+        <a href="/dashboard/#fluxo" class="modulo-card">
+          <div class="modulo-barra" style="background:#1A237E"></div>
+          <div class="modulo-icone">📝</div>
+          <div class="modulo-nome">BID — Boletim</div>
+          <div class="modulo-desc">Preenchimento e validação do Boletim Informativo Diário.</div>
+          <span class="modulo-badge badge-ativo">✓ Disponível</span>
+        </a>
+        <div class="modulo-card inativo">
+          <div class="modulo-barra" style="background:#6A1B9A"></div>
+          <div class="modulo-icone">🔪</div>
+          <div class="modulo-nome">Cirurgias</div>
+          <div class="modulo-desc">Procedimentos cirúrgicos realizados, porte e especialidade.</div>
+          <span class="modulo-badge badge-dev">Em desenvolvimento</span>
+        </div>
+
+        <div class="modulo-card inativo">
+          <div class="modulo-barra" style="background:#C62828"></div>
+          <div class="modulo-icone">🚨</div>
+          <div class="modulo-nome">Emergência</div>
+          <div class="modulo-desc">Atendimentos de urgência e emergência por tipo e setor.</div>
+          <span class="modulo-badge badge-dev">Em desenvolvimento</span>
+        </div>
+
+        <div class="modulo-card inativo">
+          <div class="modulo-barra" style="background:#2E7D32"></div>
+          <div class="modulo-icone">👶</div>
+          <div class="modulo-nome">Nascimentos</div>
+          <div class="modulo-desc">Partos normais e cesáreos realizados no período.</div>
+          <span class="modulo-badge badge-breve">Em breve</span>
+        </div>
+
+        <div class="modulo-card inativo">
+          <div class="modulo-barra" style="background:#00838F"></div>
+          <div class="modulo-icone">🩺</div>
+          <div class="modulo-nome">Consultas Ambulatoriais</div>
+          <div class="modulo-desc">Produção ambulatorial por especialidade e médico.</div>
+          <span class="modulo-badge badge-breve">Em breve</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Indicadores (futuro) -->
+    <div class="secao">
+      <div class="secao-titulo">📊 Indicadores Hospitalares</div>
+      <div class="modulos-grid">
+
+        <a href="/taxa-ocupacao/" class="modulo-card">
+          <div class="modulo-barra" style="background:#F57F17"></div>
+          <div class="modulo-icone">📈</div>
+          <div class="modulo-nome">Taxa de Ocupação</div>
+          <div class="modulo-desc">Mapa de calor mensal, evolução da taxa e resumo do dia atual.</div>
+          <span class="modulo-badge badge-ativo">✓ Disponível</span>
+        </a>
+
+        <div class="modulo-card inativo">
+          <div class="modulo-barra" style="background:#E65100"></div>
+          <div class="modulo-icone">⏱</div>
+          <div class="modulo-nome">Tempo de Permanência</div>
+          <div class="modulo-desc">Tempo médio de internação por clínica e especialidade.</div>
+          <span class="modulo-badge badge-breve">Em breve</span>
+        </div>
+
+        <div class="modulo-card inativo">
+          <div class="modulo-barra" style="background:#00695C"></div>
+          <div class="modulo-icone">🔄</div>
+          <div class="modulo-nome">Giro de Leitos</div>
+          <div class="modulo-desc">Rotatividade dos leitos por setor no período.</div>
+          <span class="modulo-badge badge-breve">Em breve</span>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="rodape">
+      <span>© 2026 HRRBC — Portal de Relatórios Hospitalares</span>
+      <span>Dados: SMART Pixeon — Somente leitura e análise interna</span>
+    </div>
+  </div>
+
+</body>
+</html>

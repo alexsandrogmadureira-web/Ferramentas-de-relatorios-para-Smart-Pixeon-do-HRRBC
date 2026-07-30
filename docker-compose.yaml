@@ -1,0 +1,34 @@
+version: "3.9"
+
+services:
+
+  db:
+    image: postgres:16-alpine
+    container_name: bid_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB:       bid_hospital
+      POSTGRES_USER:     bid_user
+      POSTGRES_PASSWORD: bid_pass_2026
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
+
+  app:
+    build: .
+    container_name: bid_hospital
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "8052:8052"
+    volumes:
+      - ./dados_ocupacao:/app/dados_ocupacao
+      - ./dados_fluxo:/app/dados_fluxo
+    depends_on:
+      - db
+
+volumes:
+  pgdata:

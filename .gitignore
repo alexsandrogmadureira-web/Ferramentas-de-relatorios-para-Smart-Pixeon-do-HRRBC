@@ -1,0 +1,30 @@
+# --- PYTHON & AMBIENTE VIRTUAL ---
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+env/
+
+# --- DASH / FLASK & CACHE LOCAL ---
+.dash_cache/
+*.json
+
+# --- DADOS, LOGS E CONEXÕES ---
+*.log
+*.sqlite
+*.db
+.env
+.env.local
+
+# --- DRIVERS & BINÁRIOS (JDBC / Java) ---
+*.jar
+*.class
+
+# --- DOCKER & ARQUIVOS DO SISTEMA ---
+.docker/
+docker-data/
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
