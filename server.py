@@ -64,7 +64,7 @@ def menu():
 
 @server.before_request
 def proteger():
-    livres = ["/login", "/logout", "/_dash", "/static", "/taxa-ocupacao", "/pacientes", "/fluxo", "/bid"]
+    livres = ["/login", "/logout", "/_dash", "/static", "/taxa-ocupacao", "/pacientes", "/fluxo", "/bid", "/cirurgias"]
     if any(request.path.startswith(r) for r in livres):
         return None
     if not session.get("logado"):

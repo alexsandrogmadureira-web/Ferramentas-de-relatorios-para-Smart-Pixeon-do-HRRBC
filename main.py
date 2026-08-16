@@ -7,12 +7,14 @@ from dashboard import criar_dash
 from taxa_ocupacao import criar_dash_taxa
 from pacientes_internados import criar_dash_pacientes
 from fluxo_hospital import criar_dash_fluxo_hospital
+from cirurgias_hospital import criar_dash_cirurgias
 from config import PORTA, NOME_HOSPITAL
 
 criar_dash(server)
 criar_dash_taxa(server)
 criar_dash_pacientes(server)
 criar_dash_fluxo_hospital(server)
+criar_dash_cirurgias(server)
 
 if __name__ == "__main__":
     print(f"\n{'='*50}")
