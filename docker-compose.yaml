@@ -7,9 +7,9 @@ services:
     container_name: bid_db
     restart: unless-stopped
     environment:
-      POSTGRES_DB:       bid_hospital
-      POSTGRES_USER:     bid_user
-      POSTGRES_PASSWORD: bid_pass_2026
+      POSTGRES_DB:       ${PG_DB}
+      POSTGRES_USER:     ${PG_USER}
+      POSTGRES_PASSWORD: ${PG_PASS}
     ports:
       - "5432:5432"
     volumes:
@@ -23,7 +23,7 @@ services:
     env_file:
       - .env
     ports:
-      - "8052:8052"
+      - "8051:8051"
     volumes:
       - ./dados_ocupacao:/app/dados_ocupacao
       - ./dados_fluxo:/app/dados_fluxo

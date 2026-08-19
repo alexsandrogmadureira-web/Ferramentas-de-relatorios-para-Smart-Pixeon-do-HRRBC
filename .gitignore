@@ -18,7 +18,7 @@ env/
 .env.local
 
 # --- DRIVERS & BINÁRIOS (JDBC / Java) ---
-*.jar
+#*.jar
 *.class
 
 # --- DOCKER & ARQUIVOS DO SISTEMA ---
