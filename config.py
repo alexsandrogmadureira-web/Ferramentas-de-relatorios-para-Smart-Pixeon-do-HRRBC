@@ -19,7 +19,7 @@ DB_CONFIG = {
 NOME_HOSPITAL = "Hospital Regional Ruy de Barros Correia"
 NOME_CIDADE   = "Arcoverde — PE"
 SECRET_KEY    = os.getenv("SECRET_KEY", "bid-hrrbc-2026")
-PORTA         = int(os.getenv("PORTA", 8052))
+PORTA         = int(os.getenv("PORTA", 8051))
 
 # Nomes exatos conforme retornam no banco (str.str_nome em maiúsculas)
 # Capacidade = número de leitos físicos instalados
